@@ -1,0 +1,23 @@
+{% extends "base.twig" %}
+{% block title %}Documentos{% endblock %}
+{% block content %}
+<h1>Documentos</h1>
+<form method="get" action="/docs">
+  <input name="q" value="{{ filters.q|e }}" placeholder="Buscar (nombre/código)">
+  <button>Buscar</button>
+</form>
+<table>
+<thead><tr><th>Código</th><th>Nombre</th><th>Tipo</th><th>Proceso</th><th></th></tr></thead>
+<tbody>
+{% for d in docs %}
+<tr>
+  <td>{{ d.codigo_formato }}</td>
+  <td>{{ d.DOC_NOMBRE }}</td>
+  <td>{{ d.tipo.TIP_PREFIJO }}</td>
+  <td>{{ d.proceso.PRO_PREFIJO }}</td>
+  <td><a href="/docs/{{ d.DOC_ID }}/edit">Editar</a></td>
+</tr>
+{% else %}<tr><td colspan="5">Sin resultados</td></tr>{% endfor %}
+</tbody></table>
+<a href="/docs/create">Nuevo</a>
+{% endblock %}
