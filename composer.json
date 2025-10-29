@@ -1,0 +1,40 @@
+{
+  "name": "bjradev/kawak-doc-registry",
+  "description": "Prueba técnica KAWAK: CRUD de documentos con código único por tipo/proceso (MVC, seguridad, tests)",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Bjradev\\KawakDocRegistry\\": "app/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Bjradev\\KawakDocRegistry\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "bjradev",
+      "email": "kingrungrothan@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "slim/slim": "^4",
+    "slim/psr7": "^1",
+    "twig/twig": "^3",
+    "vlucas/phpdotenv": "^5",
+    "illuminate/database": "^11"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11",
+    "phpstan/phpstan": "^2",
+    "squizlabs/php_codesniffer": "^3"
+  },
+  "scripts": {
+    "start": "php -S localhost:8080 -t public",
+    "test": "phpunit",
+    "cs": "phpcs --standard=PSR12 app public",
+    "stan": "phpstan analyse app --level=6"
+  }
+}
