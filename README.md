@@ -1,2 +1,1 @@
-# kawak-doc-registry
-
+# KAWAK - Doc Registry

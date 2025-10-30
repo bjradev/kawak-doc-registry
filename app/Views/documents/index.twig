@@ -1,23 +1,55 @@
 {% extends "base.twig" %}
-{% block title %}Documentos{% endblock %}
+{% block title %}Documentos
+{% endblock %}
 {% block content %}
-<h1>Documentos</h1>
-<form method="get" action="/docs">
-  <input name="q" value="{{ filters.q|e }}" placeholder="Buscar (nombre/código)">
-  <button>Buscar</button>
-</form>
-<table>
-<thead><tr><th>Código</th><th>Nombre</th><th>Tipo</th><th>Proceso</th><th></th></tr></thead>
-<tbody>
-{% for d in docs %}
-<tr>
-  <td>{{ d.codigo_formato }}</td>
-  <td>{{ d.DOC_NOMBRE }}</td>
-  <td>{{ d.tipo.TIP_PREFIJO }}</td>
-  <td>{{ d.proceso.PRO_PREFIJO }}</td>
-  <td><a href="/docs/{{ d.DOC_ID }}/edit">Editar</a></td>
-</tr>
-{% else %}<tr><td colspan="5">Sin resultados</td></tr>{% endfor %}
-</tbody></table>
-<a href="/docs/create">Nuevo</a>
+	<div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+		<h1 style="margin: 0;">Documentos</h1>
+		<div>
+			<a href="/docs/create" style="padding: 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">+ Nuevo</a>
+		</div>
+		<div>
+			<a href="/logout" style="padding: 10px; background-color:#ff3700; color: white; text-decoration: none; border-radius: 5px;">Cerrar sesión</a>
+		</div>
+
+	</div>
+	<form method="get" action="/docs">
+		<div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 20px;">
+			<input name="q" value="{{ filters.q|e }}" placeholder="Buscar (nombre/código)" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 300px;">
+			<button style="padding: 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; border: none; cursor: pointer;">Buscar</button>
+		</div>
+	</form>
+	<table>
+		<thead>
+			<tr>
+				<th>Código</th>
+				<th>Nombre</th>
+				<th>Tipo</th>
+				<th>Contenido</th>
+				<th>Proceso</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for d in docs %}
+				<tr style="border-bottom: 1px solid #ccc; text-align: center; vertical-align: middle; height: 50px; font-size: 14px; font-weight: 500; color: #333; background-color: #f5f5f5;">
+					<td style="padding: 10px; text-align: center;">{{ d.formatted_code }}</td>
+					<td style="padding: 10px; text-align: center;">{{ d.DOC_NOMBRE }}</td>
+					<td style="padding: 10px; text-align: center;">{{ d.type.TIP_PREFIJO }}</td>
+					<td style="padding: 10px; text-align: center;">{{ d.DOC_CONTENIDO }}</td>
+					<td style="padding: 10px; text-align: center;">{{ d.process.PRO_PREFIJO }}</td>
+					<td style="padding: 10px; text-align: center;">
+						<a href="/docs/{{ d.DOC_ID }}/edit" style="padding: 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; border: none; cursor: pointer;">Editar</a>
+						<form method="post" action="/docs/{{ d.DOC_ID }}/delete" style="display: inline;">
+							<input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
+							<input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
+							<button type="submit" onclick="return confirm('¿Estás seguro de querer eliminar este documento?')" style="padding: 10px; background-color: #ff3700; color: white; text-decoration: none; border-radius: 5px; border: none; cursor: pointer;">Eliminar</button>
+						</form>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">Sin resultados</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

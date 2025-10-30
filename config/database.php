@@ -1,11 +1,12 @@
 <?php
+
 return [
   'driver'    => 'mysql',
-  'host'      => '127.0.0.1',
-  'port'      => 3306,
-  'database'  => 'kawak',
-  'username'  => 'kawak',
-  'password'  => 'kawak',
+  'host'      => $_ENV['DB_HOST'],
+  'port'      => $_ENV['DB_PORT'],
+  'database'  => $_ENV['DB_NAME'],
+  'username'  => $_ENV['DB_USER'],
+  'password'  => $_ENV['DB_PASS'],
   'charset'   => 'utf8mb4',
   'collation' => 'utf8mb4_unicode_ci',
 ];

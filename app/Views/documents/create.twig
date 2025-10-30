@@ -1,0 +1,51 @@
+{% extends "base.twig" %}
+{% block title %}Nuevo documento
+{% endblock %}
+
+{% block content %}
+	<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+		<div style="display: flex; flex-direction: column; gap: 10px;">
+			<h1 style="text-align: center; margin: 0;">Nuevo documento</h1>
+
+			<form method="post" action="/docs">
+				<input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
+				<input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
+
+				<div style="margin-bottom: 20px; width: 100%;">
+					<label for="DOC_NOMBRE">Nombre</label><br>
+					<input id="DOC_NOMBRE" name="DOC_NOMBRE" required maxlength="60" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+				</div>
+
+				<div style="margin-bottom: 20px; width: 100%;">
+					<label for="DOC_ID_TIPO">Tipo</label><br>
+					<select id="DOC_ID_TIPO" name="DOC_ID_TIPO" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+						{% for t in tipos %}
+							<option value="{{ t.TIP_ID }}">{{ t.TIP_PREFIJO }}
+								—
+								{{ t.TIP_NOMBRE }}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div style="margin-bottom: 20px; width: 100%;">
+					<label for="DOC_ID_PROCESO">Proceso</label><br>
+					<select id="DOC_ID_PROCESO" name="DOC_ID_PROCESO" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+						{% for p in procesos %}
+							<option value="{{ p.PRO_ID }}">{{ p.PRO_PREFIJO }}
+								—
+								{{ p.PRO_NOMBRE }}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div style="margin-bottom: 20px; width: 100%;">
+					<label for="DOC_CONTENIDO">Contenido</label><br>
+					<textarea id="DOC_CONTENIDO" name="DOC_CONTENIDO" rows="6" maxlength="4000" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 100%;"></textarea>
+				</div>
+
+				<button type="submit" style="padding: 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; border: none; cursor: pointer;">Guardar</button>
+				<a href="/docs" style="padding: 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; border: none; cursor: pointer;">Cancelar</a>
+			</form>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.twig" %}
+{% block title %}Iniciar sesión
+{% endblock %}
+{% block content %}
+	<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+		<div style="display: flex; flex-direction: column; gap:10px;">
+			<h1 style="text-align: center; margin: 0;">Iniciar sesión</h1>
+			<h3s style="text-align: center; font-size: 16px; font-weight: 500; color: #737373;">Ingrese sus credenciales para acceder a la plataforma</h3s>
+
+
+			<form method="post" action="/login">
+				<div style="margin-bottom: 20px;">
+					<input name="user" placeholder="Usuario" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+				</div>
+				<div style="margin-bottom: 20px;">
+					<input name="pass" type="password" placeholder="Contraseña" required style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 100%;">
+				</div>
+				<div style="margin-bottom: 20px;">
+					<input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
+					<input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
+					{% if session.error %}
+						<p style="color:red; text-align: center;">{{ session.error }}</p>
+					{% endif %}
+
+					<button style="padding: 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; border: none; cursor: pointer; width: 100%; font-size: 16px; font-weight: 900;">Entrar</button>
+				</div>
+			</form>
+		</div>
+	{% endblock %}
